@@ -18,6 +18,16 @@ tfoot {
           &:first-child {
             border-right: 2px solid $theme-color;
           }
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+          &:disabled {
+            cursor: default;
+            opacity: 0.6;
+            text-decoration: none;
+          }
         }
       }
     }
