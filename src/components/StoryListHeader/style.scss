@@ -1,0 +1,13 @@
+@import "../../variables"; 
+
+thead {
+  background-color: $theme-color;
+  tr {
+    th {
+      color: #fff;
+      font-size: 12px;
+      padding-right: 5px;
+      font-weight: 500;
+    }
+  }
+}
