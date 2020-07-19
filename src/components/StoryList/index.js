@@ -11,7 +11,7 @@ import './style.scss';
 
 const StoryList = () => {
   const { stories, loading, page } = useSelector((state) => ({
-    stories: state.stories.getIn(['stories', 'data']),
+    stories: state.stories.getIn(['stories', 'data']).toList(),
     loading: state.stories.getIn(['stories', 'loading']),
     page: state.stories.getIn(['pagination', 'page'])
   }));
