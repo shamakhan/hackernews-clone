@@ -3482,6 +3482,11 @@ caniuse-lite@^1.0.30001093:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001102.tgz#3275e7a8d09548f955f665e532df88de0b63741a"
   integrity sha512-fOjqRmHjRXv1H1YD6QVLb96iKqnu17TjcLSaX64TwhGYed0P1E1CCWZ9OujbbK4Z/7zax7zAzvQidzdtjx8RcA==
 
+canvasjs-react-charts@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/canvasjs-react-charts/-/canvasjs-react-charts-1.0.5.tgz#bdcc06f7bd50a24f69cca9615dafabc0a2a7b063"
+  integrity sha512-8P3KnAvCqftmqf4O/xG6PlIDcTr0IvzuE4l6ACXIOROKtFmnmUu/xPEeq+0vI9Xvh7zXjzZvRqw0p1uxXr034g==
+
 capture-exit@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/capture-exit/-/capture-exit-2.0.0.tgz#fb953bfaebeb781f62898239dabb426d08a509a4"

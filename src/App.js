@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePage, fetchStories } from './store/actions/storyActions';
 import StoryDescription from './components/StoryDescription';
 import { ToastContainer } from 'react-toastify';
+import Timeline from './components/Timeline';
 
 function App() {
   const { page, storyId } = useSelector((state) => ({
@@ -27,6 +28,7 @@ function App() {
       <ToastContainer />
       {storyId && <StoryDescription />}
       {!storyId && <StoryList />}
+      <Timeline />
     </div>
   );
 }
