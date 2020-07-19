@@ -32,8 +32,8 @@ const StoryDetail = ({ story }) => {
     }
     urlParams[key] = value;
     const queryString = toQueryString(urlParams);
-    const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${queryString}`;
-    window.history.pushState({ path: newurl }, '', newurl);
+    const newurl = `${global.window.location.protocol}//${global.window.location.host}${global.window.location.pathname}${queryString}`;
+    global.window.history.pushState({ path: newurl }, '', newurl);
     if (page !== 1) {
       dispatch(changePage(1));
     } else {
@@ -43,8 +43,8 @@ const StoryDetail = ({ story }) => {
 
   const showStory = (e) => {
     e.preventDefault();
-    const newurl = `${window.location.protocol}//${window.location.host}/item?id=${story.get('objectID')}`;
-    window.history.pushState({ path: newurl }, '', newurl);
+    const newurl = `${global.window.location.protocol}//${global.window.location.host}?id=${story.get('objectID')}`;
+    global.window.history.pushState({ path: newurl }, '', newurl);
     dispatch(toggleStory(story.get('objectID')));
   }
 

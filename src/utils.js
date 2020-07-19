@@ -5,15 +5,15 @@ TimeAgo.addLocale(en);
 export const timeAgo = new TimeAgo('en-IN');
 
 export const getDataFromStorage = () => {
-  return JSON.parse(localStorage.getItem('storyActions') || '{}');
+  return JSON.parse(global.window.localStorage.getItem('storyActions') || '{}');
 }
 
 export const saveDataToStorage = (data) => {
-  localStorage.setItem('storyActions', JSON.stringify(data));
+  global.window.localStorage.setItem('storyActions', JSON.stringify(data));
 }
 
 export const getUrlParams = () => {
-  const { search } = window.location;
+  const { search } = global.window.location || {};
   if (search) {
     const paramArr = search.substr(1).split('&');
     return paramArr.reduce((acc, param) => {

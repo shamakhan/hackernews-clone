@@ -9,9 +9,10 @@ import { ToastContainer } from 'react-toastify';
 import Timeline from './components/Timeline';
 
 function App() {
-  const { page, storyId } = useSelector((state) => ({
+  const { page, storyId, storiesCount } = useSelector((state) => ({
     page: state.stories.getIn(['pagination', 'page']),
     storyId: state.stories.get('storyId'),
+    storiesCount: state.stories.getIn(['stories', 'data']).size
   }));
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,7 +35,7 @@ function App() {
       {!storyId && 
         <React.Fragment>
           <StoryList />
-          <Timeline />
+          {storiesCount && <Timeline /> }
         </React.Fragment>
       }
     </div>
