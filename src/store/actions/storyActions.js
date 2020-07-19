@@ -64,10 +64,11 @@ export function changePage(page) {
   };
 }
 
-export function upvoteStory(storyId) {
+export function upvoteStory(storyId, updateList = true) {
   return {
     type: UPVOTE_STORY,
     storyId,
+    updateList
   };
 }
 

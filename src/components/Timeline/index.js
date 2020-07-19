@@ -5,12 +5,13 @@ import { options } from './constant';
 import './style.scss';
 
 const Timeline = () => {
-  const data = useSelector((state) => 
-    state.stories.getIn(['stories', 'data'])
+  const { data, loading } = useSelector((state) => ({
+    data: state.stories.getIn(['stories', 'data'])
     .toList()
     .toJS()
-    .map((story) => ({ label: story.objectID, y: story.points}))
-  );
+    .map((story) => ({ label: story.objectID, y: story.points})),
+    loading: state.stories.getIn(['stories', 'loading'])
+  }));
   const chartOptions = useMemo(
     () => ({
       ...options,
@@ -27,7 +28,7 @@ const Timeline = () => {
 
   return (
     <div className="chart-wrapper">
-      <CanvasJSChart options={ chartOptions } />
+      {!loading && <CanvasJSChart options={ chartOptions } />}
     </div>
   );
 }

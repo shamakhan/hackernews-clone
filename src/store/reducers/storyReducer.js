@@ -54,12 +54,15 @@ export default function(state = initialState, action) {
       return state.setIn(['pagination', 'page'], action.page);
     case UPVOTE_STORY:
       saveUpvote(action.storyId);
+      if (!action.updateList) {
+        return state;
+      }
       return state.updateIn(['stories', 'data', action.storyId], (story) => story.set('upvoted', true).update('points', (points) => points+1));
     case HIDE_STORY:
       saveStoryHidden(action.storyId);
       return state.updateIn(['stories', 'data'], (stories) => stories.remove(action.storyId));
     case TOGGLE_STORY:
-      return state.set('storyId', action.storyId);
+      return state.set('storyId', action.storyId).setIn(['pagination', 'page'], 1);
     default:
       return state;
   }

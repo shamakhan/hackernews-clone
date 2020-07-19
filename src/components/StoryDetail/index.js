@@ -1,14 +1,9 @@
 import React from 'react';
 import extractDomain from 'extract-domain';
-import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideStory, fetchStories, changePage } from '../../store/actions/storyActions';
-import { getUrlParams, toQueryString } from '../../utils';
-
-TimeAgo.addLocale(en);
-const timeAgo = new TimeAgo('en-IN');
+import { hideStory, fetchStories, changePage, toggleStory } from '../../store/actions/storyActions';
+import { getUrlParams, toQueryString, timeAgo } from '../../utils';
 
 const StoryDetail = ({ story }) => {
   const page = useSelector((state) => state.stories.getIn(['pagination', 'page']));
@@ -50,6 +45,7 @@ const StoryDetail = ({ story }) => {
     e.preventDefault();
     const newurl = `${window.location.protocol}//${window.location.host}/item?id=${story.get('objectID')}`;
     window.history.pushState({ path: newurl }, '', newurl);
+    dispatch(toggleStory(story.get('objectID')));
   }
 
   return (
