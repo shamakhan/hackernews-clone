@@ -9,15 +9,15 @@ const store = createStore(
     // process.env.NODE_ENV === 'development' ?  (window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) : null
   ),
 );
-const enhancer = global.window && global.window.__REDUX_DEVTOOLS_EXTENSION__ && global.window.__REDUX_DEVTOOLS_EXTENSION__();
+// const enhancer = global.window && global.window.__REDUX_DEVTOOLS_EXTENSION__ && global.window.__REDUX_DEVTOOLS_EXTENSION__();
 
 export default function configureStore(preloadedState = {}) {
   return createStore(
     reducers,
     preloadedState,
     compose(
-      applyMiddleware(thunkMiddleware),
-      enhancer
+      applyMiddleware(thunkMiddleware)
+      // ,enhancer
     ),
   )
 };
