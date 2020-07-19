@@ -1,12 +1,17 @@
 @import "../../variables"; 
 
 thead {
-  background-color: $theme-color;
   tr {
     th {
       color: #fff;
       padding-right: 5px;
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 0.9em;
+      vertical-align: bottom;
+      text-align: start;
+      position: sticky;
+      top: 0;
+      background-color: $theme-color;
     }
   }
 }

@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import StoryListItem from '../StoryListItem';
 import StoryListHeader from '../StoryListHeader';
 import StoryListFooter from '../StoryListFooter';
-import './style.scss';
 import Loader from '../Loader';
 import { fetchStories } from '../../store/actions/storyActions';
+import './style.scss';
+
+
 
 const StoryList = () => {
   const { stories, loading, page } = useSelector((state) => ({
@@ -18,26 +20,32 @@ const StoryList = () => {
 
   useEffect(() => {
     dispatch(fetchStories());
-  }, [page])
+  }, [page]);
 
   return (
     <table>
       <StoryListHeader />
       <tbody>
-        {loading && (
-          <tr>
-            <td colSpan="4">
-              <Loader />
-            </td>
-          </tr>
-        )}
+        {loading && (<Loader />)}
         {!loading && (
             (stories.size === 0 && (
-              <tr>
-                <td colSpan="4">No stories found.</td>
-              </tr>
+              <React.Fragment>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td width="100%"></td>
+                </tr>
+                <tr>
+                  <td colSpan="4">No stories found.</td>
+                </tr>
+              </React.Fragment>
             )) || (
-              stories.map((story) => <StoryListItem story={ story } />)
+              stories.map((story) => (
+                <tr className="story-row" key={ `story-${story.get('objectID')}` }>
+                  <StoryListItem story={ story } />
+                </tr>)
+              )
             )
         )}
       </tbody>
