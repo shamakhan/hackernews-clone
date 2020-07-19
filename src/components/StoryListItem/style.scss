@@ -1,8 +1,14 @@
+@import "../../variables";
+
 tr {
   &.story-row {
     td {
       padding: 5px 0;
       vertical-align: baseline;
+
+      &.story-upvoted {
+        color: $theme-color;
+      }
 
       .upvote-button {
         padding: 0;

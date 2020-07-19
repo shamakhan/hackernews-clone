@@ -1,0 +1,12 @@
+@import "../../variables";
+
+.story-description {
+  font-size: 1em;
+
+  .story-header {
+    background-color: $theme-color;
+    color: #fff;
+    font-weight: 500;
+    padding: 5px;
+  }
+}

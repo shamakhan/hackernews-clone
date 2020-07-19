@@ -14,7 +14,7 @@ const StoryListItem = ({ story }) => {
         <span className="sr-only">Number of comments</span>
         {story.get('num_comments')}
       </td>
-      <td>
+      <td className={ `${story.get('upvoted') ? 'story-upvoted' : ''}` }>
         <span className="sr-only">. Number of upvotes </span>
         {story.get('points')}
       </td>

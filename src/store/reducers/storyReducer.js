@@ -1,24 +1,27 @@
 import { fromJS } from 'immutable';
-import { getDataFromStorage, saveDataToStorage } from '../../utils';
+import { getDataFromStorage, saveDataToStorage, getUrlParams } from '../../utils';
 
 import {
   FETCHING_STORIES,
   LOAD_STORIES,
+  FAILED_TO_LOAD_STORIES,
   CHANGE_PAGE,
   UPVOTE_STORY,
   HIDE_STORY,
+  TOGGLE_STORY,
 } from '../actions/storyActions';
 
 const initialState = fromJS({
   stories: {
-    loading: false,
-    data: [],
+    loading: true,
+    data: {},
   },
   pagination: {
     totalPages: 1,
     rows: 30,
     page: 1,
-  }
+  },
+  storyId: getUrlParams().id
 });
 
 export default function(state = initialState, action) {
@@ -36,20 +39,27 @@ export default function(state = initialState, action) {
               return acc;
             }
             acc[storyId] = story;
-            acc[storyId].points = acc[storyId].points + (storySavedData.votes || 0);
+            if (storySavedData.votes) {
+              acc[storyId].points = acc[storyId].points + storySavedData.votes;
+              acc[storyId].upvoted = true;
+            }
             return acc;
           }, {})
         ))
         .setIn(['pagination', 'totalPages'], action.data.nbPages);
     }
+    case FAILED_TO_LOAD_STORIES:
+      return state.setIn(['stories', 'loading'], false);
     case CHANGE_PAGE:
       return state.setIn(['pagination', 'page'], action.page);
     case UPVOTE_STORY:
       saveUpvote(action.storyId);
-      return state.updateIn(['stories', 'data', action.storyId], (story) => story.update('points', (points) => points+1));
+      return state.updateIn(['stories', 'data', action.storyId], (story) => story.set('upvoted', true).update('points', (points) => points+1));
     case HIDE_STORY:
       saveStoryHidden(action.storyId);
       return state.updateIn(['stories', 'data'], (stories) => stories.remove(action.storyId));
+    case TOGGLE_STORY:
+      return state.set('storyId', action.storyId);
     default:
       return state;
   }

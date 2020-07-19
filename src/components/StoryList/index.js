@@ -23,34 +23,36 @@ const StoryList = () => {
   }, [page]);
 
   return (
-    <table>
-      <StoryListHeader />
-      <tbody>
-        {loading && (<Loader />)}
-        {!loading && (
-            (stories.size === 0 && (
-              <React.Fragment>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td width="100%"></td>
-                </tr>
-                <tr>
-                  <td colSpan="4">No stories found.</td>
-                </tr>
-              </React.Fragment>
-            )) || (
-              stories.map((story) => (
-                <tr className="story-row" key={ `story-${story.get('objectID')}` }>
-                  <StoryListItem story={ story } />
-                </tr>)
-              )
-            )
-        )}
-      </tbody>
-      <StoryListFooter />
-    </table>
+    <div className="story-wrapper">
+      {loading && (<Loader />)}
+      <table>
+        <StoryListHeader />
+        <tbody>
+          {stories.size === 0 && (
+          <React.Fragment>
+            <tr>
+              <td colSpan="4" className="table-placeholder">
+                {!loading && 'No stories found.'}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td width="100%"></td>
+            </tr>
+          </React.Fragment>
+              ) || (
+                stories.map((story) => (
+                  <tr className="story-row" key={ `story-${story.get('objectID')}` }>
+                    <StoryListItem story={ story } />
+                  </tr>)
+                )
+              )}
+        </tbody>
+        <StoryListFooter />
+      </table>
+    </div>
   )
 }
 

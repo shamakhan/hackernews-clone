@@ -5,7 +5,7 @@ import en from 'javascript-time-ago/locale/en';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideStory, fetchStories, changePage } from '../../store/actions/storyActions';
-import { getUrlParams } from '../../utils';
+import { getUrlParams, toQueryString } from '../../utils';
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-IN');
@@ -17,19 +17,28 @@ const StoryDetail = ({ story }) => {
   const url = story.get('url');
   const domain = url && extractDomain(url);
 
+  const onUrlClick = (e) => {
+    e.preventDefault();
+    updateUrlQuery('site', domain);
+  }
+
   const onAuthorClick = (e) => {
     e.preventDefault();
+    updateUrlQuery('author', story.get('author'));
+  }
+
+  const updateUrlQuery = (key, value) => {
     const urlParams = getUrlParams();
-    if (urlParams.author && urlParams.author === story.get('author')) {
+    if (urlParams[key] && urlParams[key] === value) {
       if (page !== 1) {
         dispatch(changePage(1));
       }
       return;
     }
-    if (history.pushState) {
-        const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?author=${story.get('author')}`;
-        window.history.pushState({ path: newurl }, '', newurl);
-    }
+    urlParams[key] = value;
+    const queryString = toQueryString(urlParams);
+    const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${queryString}`;
+    window.history.pushState({ path: newurl }, '', newurl);
     if (page !== 1) {
       dispatch(changePage(1));
     } else {
@@ -37,20 +46,26 @@ const StoryDetail = ({ story }) => {
     }
   }
 
+  const showStory = (e) => {
+    e.preventDefault();
+    const newurl = `${window.location.protocol}//${window.location.host}/item?id=${story.get('objectID')}`;
+    window.history.pushState({ path: newurl }, '', newurl);
+  }
+
   return (
     <div className="story-details">
       <span className="story-title">
         <span className="sr-only">Story title: </span>
         {
-          (url && <a href={ url } >{story.get('title')}</a>) ||
-          (story.get('title'))
+          (url && <a href={ url } target="_blank" >{story.get('title')}</a>) ||
+          (<a href="" onClick={ showStory } >{story.get('title')}</a>)
         }
         &nbsp;
         {domain &&
           <span className="story-origin">
             <span className="sr-only">Posted on: </span>
             <span className="light-helper-text">(</span>
-            <a href={ domain }>{domain}</a>
+            <a href="" onClick={ onUrlClick }>{domain}</a>
             <span className="light-helper-text">)</span>
             &nbsp;
           </span>

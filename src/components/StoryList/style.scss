@@ -1,7 +1,26 @@
-table {
-  border-collapse: collapse;
+@import "../../variables";
+
+.story-wrapper {
   width: 100%;
-  background: rgb(246, 246, 239);
-  font-weight: 500;
   position: relative;
+  background: rgb(246, 246, 239);
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-weight: 500;
+    position: relative;
+    border-bottom: 3px solid $theme-color;
+  
+    tr {
+      &:nth-child(even) {
+        td {
+          background-color: #e5e4de;
+        }
+      }
+      td.table-placeholder {
+        padding: 100px;
+      }
+    }
+  }
 }
