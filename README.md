@@ -1,3 +1,6 @@
+## Deployment
+A working version of the app is deployed at https://hackernews-clone-sk.herokuapp.com/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
