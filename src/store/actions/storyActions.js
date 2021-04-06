@@ -13,7 +13,7 @@ export const UPVOTE_STORY = 'app/story/UPVOTE_STORY';
 export const HIDE_STORY = 'app/story/HIDE_STORY';
 export const TOGGLE_STORY = 'app/story/TOGGLE_STORY';
 
-export function fetchStories() {
+export function fetchStories(page = null) {
   return async (dispatch, getState) => {
     dispatch(fetchingStories());
     const pagination = getState().stories.get('pagination');
@@ -26,8 +26,9 @@ export function fetchStories() {
       if (params.site) {
         url += `&query=${params.site}&restrictSearchableAttributes=url`;
       }
+      page = page || pagination.get('page', 1);
       // Add pagination data
-      url += `&page=${pagination.get('page')}&hitsPerPage=${pagination.get('rows')}`;
+      url += `&page=${page}&hitsPerPage=${pagination.get('rows')}`;
       const response = await fetch(url);
       const data = await response.json();
       dispatch(loadStories(data));

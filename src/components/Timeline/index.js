@@ -1,5 +1,6 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+
 import { CanvasJSChart } from 'canvasjs-react-charts';
 import { options } from './constant';
 import './style.scss';
@@ -28,7 +29,7 @@ const Timeline = () => {
 
   return (
     <div className="chart-wrapper">
-      {!loading && <CanvasJSChart options={ chartOptions } />}
+      {(typeof window !== 'undefined') && !loading && CanvasJSChart && <CanvasJSChart options={ chartOptions } />}
     </div>
   );
 }

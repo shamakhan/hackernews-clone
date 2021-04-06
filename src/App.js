@@ -6,24 +6,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePage, fetchStories, toggleStory } from './store/actions/storyActions';
 import StoryDescription from './components/StoryDescription';
 import { ToastContainer } from 'react-toastify';
-import Timeline from './components/Timeline';
+import dynamic from 'next/dynamic';
+
+const Timeline = dynamic(() => import('./components/Timeline'));
+// import Timeline from './components/Timeline';
 
 function App() {
-  const { page, storyId, storiesCount } = useSelector((state) => ({
-    page: state.stories.getIn(['pagination', 'page']),
-    storyId: state.stories.get('storyId'),
-    storiesCount: state.stories.getIn(['stories', 'data']).size
-  }));
+  const { page, storyId, storiesCount } = useSelector((state) => {
+    return {
+      page: state.stories.getIn(['pagination', 'page']),
+      storyId: state.stories.get('storyId'),
+      storiesCount: state.stories.getIn(['stories', 'data']).size
+    }
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     window.addEventListener('popstate', function(event) {
       if (storyId) {
         dispatch(toggleStory());
       } else {
+        dispatch(fetchStories(1));
         if (page !== 1) {
           dispatch(changePage(1));
-        } else {
-          dispatch(fetchStories());
         }
       }
     });

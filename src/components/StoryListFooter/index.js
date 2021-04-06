@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { changePage } from '../../store/actions/storyActions';
+import { changePage, fetchStories } from '../../store/actions/storyActions';
 
 const StoryListFooter = () => {
   const {page, totalPages} = useSelector((state) => ({
@@ -13,6 +13,7 @@ const StoryListFooter = () => {
 
   const onPageChange = (diff) => {
     dispatch(changePage(page+diff));
+    dispatch(fetchStories(page+diff));
   }
 
   return (

@@ -13,7 +13,7 @@ export const saveDataToStorage = (data) => {
 }
 
 export const getUrlParams = () => {
-  const { search } = global.window.location || {};
+  const { search } = (global.window && global.window.location) || {};
   if (search) {
     const paramArr = search.substr(1).split('&');
     return paramArr.reduce((acc, param) => {

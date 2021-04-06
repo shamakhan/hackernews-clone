@@ -18,9 +18,10 @@ const StoryList = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchStories());
-  }, [page]);
+  // useEffect(() => {
+  //   console.log({ page });  
+  //   dispatch(fetchStories());
+  // }, [page]);
 
   return (
     <div className="story-wrapper">

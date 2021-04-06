@@ -6,7 +6,9 @@ import { hideStory, fetchStories, changePage, toggleStory } from '../../store/ac
 import { getUrlParams, toQueryString, timeAgo } from '../../utils';
 
 const StoryDetail = ({ story }) => {
-  const page = useSelector((state) => state.stories.getIn(['pagination', 'page']));
+  const page = useSelector((state) => {
+    return state.stories.getIn(['pagination', 'page'], 1)
+  });
   const dispatch = useDispatch();
   
   const url = story.get('url');
@@ -27,6 +29,7 @@ const StoryDetail = ({ story }) => {
     if (urlParams[key] && urlParams[key] === value) {
       if (page !== 1) {
         dispatch(changePage(1));
+        dispatch(fetchStories(1));
       }
       return;
     }
@@ -36,9 +39,8 @@ const StoryDetail = ({ story }) => {
     global.window.history.pushState({ path: newurl }, '', newurl);
     if (page !== 1) {
       dispatch(changePage(1));
-    } else {
-      dispatch(fetchStories(true));
     }
+    dispatch(fetchStories(1));
   }
 
   const showStory = (e) => {
@@ -85,9 +87,8 @@ const StoryDetail = ({ story }) => {
           &nbsp;
           <span className="light-helper-text">[</span>
           <button onClick={ () => dispatch(hideStory(story.get('objectID'))) }>
-            <span className="sr-only">. Button to </span>
             hide
-            <span className="sr-only">this story. </span>
+            <span className="sr-only">. Button to hide this story </span>
           </button>
           <span className="light-helper-text">]</span>
         </span>
